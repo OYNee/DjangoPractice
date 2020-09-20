@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+        <style>
+        form {
+            display: block;
+            padding: 12px;
+        }
+
+        div.wrapper form{
+            margin-bottom: 12px;
+            -webkit-box-shadow: 2px 2px 4px #000;
+            -moz-box-shadow: 2px 2px 4px #000;
+            box-shadow: 2px 2px 4px #000;
+            border: 1px solid #FFF;
+        }
+
+        form div.wrapper div.content {
+            display: flex;
+            display: -webkit-flex;
+            margin: 12px;
+            align-items: center;
+            -webkit-align-items: center;
+        }
+
+        form div.wrapper div.content label {
+            margin-right: 12px;
+            min-width: 200px;
+        }
+
+        form div.wrapper div.content p {
+            flex: 1;
+            -webkit-flex: 1;
+        }
+        form div.wrapper div.content textarea {
+            flex: 1;
+            -webkit-flex: 1;
+            height: 300px;
+        }
+
+        form input[type=submit] {
+            background-color: #ececec;
+            border-radius: 4px;
+            padding: 8px
+        }
+
+        form input[type=button] {
+            background-color: #ececec;
+            border-radius: 4px;
+            padding: 8px
+        }
+
+    </style>
+</head>
+<body>
+<form action="../update/" method="POST">
+    {% csrf_token %}
+    <div class="wrapper">
+        <div class="content">
+            <label>title</label>
+            <p>{{ post.title }}</p>
+        </div>
+        <div class="content">
+            <label>author</label>
+            <p>{{ post.author }}</p>
+        </div>
+        <div class="content">
+            <label>date</label>
+            <p>{{ post.date }}</p>
+        </div>
+        <div class="content">
+            <label>content</label>
+            <textarea maxlength="4096", readonly>{{ post.body }}</textarea>
+        </div>
+    </div>
+    <div align="right">
+        <input class="btn_update" type="submit" value="수정하기"/>
+        <input type="hidden" value="{{ post.title }}" name="title"/>
+        <input type="hidden" value="{{ post.body }}" name="body"/>
+        <input type="hidden" value="{{ post.pk }}" name="pk"/>
+        <input type="hidden" value=1 name="index"/>
+        <input class="btn_cancel" type="submit" value="삭제하기" name="del"/>
+        <input class="btn_cancel" type="button" value="리스트로 돌아가기" onclick="location.href='/board'"/>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>게시물 작성</title>
+    <style>
+        form {
+            display: block;
+            padding: 12px;
+        }
+
+        div.form_wrapper form{
+            margin-bottom: 12px;
+            -webkit-box-shadow: 2px 2px 4px #000;
+            -moz-box-shadow: 2px 2px 4px #000;
+            box-shadow: 2px 2px 4px #000;
+            border: 1px solid #FFF;
+        }
+
+        form div.form_wrapper div.input_form {
+            display: flex;
+            display: -webkit-flex;
+            margin: 12px;
+            align-items: center;
+            -webkit-align-items: center;
+        }
+
+        form div.form_wrapper div.input_form label {
+            margin-right: 12px;
+            min-width: 200px;
+        }
+
+        form div.form_wrapper div.input_form input {
+            flex: 1;
+            -webkit-flex: 1;
+        }
+        form div.form_wrapper div.input_form textarea {
+            flex: 1;
+            -webkit-flex: 1;
+            height: 300px;
+        }
+
+        form input[type=submit] {
+            background-color: #ececec;
+            border-radius: 4px;
+            padding: 8px
+        }
+
+        form input[type=button] {
+            background-color: #ececec;
+            border-radius: 4px;
+            padding: 8px
+        }
+
+    </style>
+
+</head>
+<body>
+    <form action="../detailed/" method="POST">
+        {% csrf_token %}
+        <div class="form_wrapper">
+            <div class="input_form">
+                <label>title</label>
+                {% if index == 1 %}
+                    <input type="text" name="title" maxlength="1024" value="{{ title }}"/>
+                {% else %}
+                    <input type="text" name="title" maxlength="1024"/>
+                {% endif %}
+            </div>
+
+            <div class="input_form">
+                <label>content</label>
+                {% if index == 1 %}
+                    <textarea name="body" maxlength="4096">{{ body }}</textarea>
+                {% else %}
+                    <textarea name="body" maxlength="4096"></textarea>
+                {% endif %}
+            </div>
+        </div>
+        <div align="right">
+            {% if index == 1 %}
+                <input type="hidden" name="is_new" value="0"/>
+                <input type="hidden" name="pk" value={{ pk }}/>
+            {% else %}
+                <input type="hidden" name="is_new" value="1"/>
+            {% endif %}
+            <input class="btn_save" type="submit" value="저장하기"/>
+            <input class="btn_cancel" type="button" value="리스트로 돌아가기" onclick="location.href='/board'"/>
+        </div>
+    </form>
+</body>
+</html>
